@@ -9,24 +9,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './App.css';
 import { useState } from 'react';
+import { ProfileContext } from './ProfileContext';
 
 
 function App() {
   const [username, setUsername] = useState("Zahra")
   return (
     <div className="App d-flex flex-column min-vh-100">
+      <ProfileContext.Provider value={{username, setUsername}}>
       <BrowserRouter>
         <Header/>
         <div className="container mt-5">
           <Routes>
-            <Route path="/" element={<Home username={username} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About/>} />
-            <Route path="/profile" element={<Profile username={username} setUsername={setUsername}/>} />
+            <Route path="/profile" element={<Profile />} />
             <Route path='*' element={<Error />} />
           </Routes>
         </div>
         <Footer />
       </BrowserRouter>
+      </ProfileContext.Provider>
     </div>
   );
 }
